@@ -1,14 +1,17 @@
-class Persona:
-    """Modelo simple de una persona con propiedades de acceso."""
+"""
+Modelo simple de una persona con propiedades de acceso.
+Incluye validación básica y método para mostrar información.
+"""
 
+class Persona:
     def __init__(self, nombre: str, fecha_nac: str, direccion: str, telefono: str, email: str = ""):
-        if not nombre:
+        if not nombre or not nombre.strip():
             raise ValueError("El nombre no puede estar vacío.")
-        self._nombre = nombre
-        self._fecha_nac = fecha_nac
-        self._direccion = direccion
-        self._telefono = telefono
-        self._email = email
+        self._nombre = nombre.strip()
+        self._fecha_nac = fecha_nac.strip()
+        self._direccion = direccion.strip()
+        self._telefono = telefono.strip()
+        self._email = email.strip()
 
     @property
     def nombre(self) -> str:
@@ -31,11 +34,10 @@ class Persona:
         return self._email
 
     def mostrar_info(self) -> str:
-        info = [
+        return " | ".join([
             f"Nombre: {self.nombre}",
             f"Fecha de nacimiento: {self.fecha_nac}",
             f"Dirección: {self.direccion}",
             f"Teléfono: {self.telefono}",
             f"Email: {self.email if self.email else 'No registrado'}"
-        ]
-        return " | ".join(info)
+        ])

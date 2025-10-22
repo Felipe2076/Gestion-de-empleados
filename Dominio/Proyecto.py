@@ -1,17 +1,18 @@
 class Proyecto:
     def __init__(self, id_proyecto: int, nombre: str, descripcion: str,
-                fecha_inicio: str, fecha_fin: str):
+                 fecha_inicio: str, fecha_fin: str):
         if id_proyecto is None or int(id_proyecto) <= 0:
             raise ValueError("id_proyecto debe ser un entero positivo")
-        if not nombre:
+        if not nombre or not nombre.strip():
             raise ValueError("El nombre del proyecto no puede estar vacío")
 
         self._id_proyecto = int(id_proyecto)
-        self._nombre = nombre
-        self._descripcion = descripcion
-        self._fecha_inicio = fecha_inicio
-        self._fecha_fin = fecha_fin
+        self._nombre = nombre.strip()
+        self._descripcion = descripcion.strip()
+        self._fecha_inicio = fecha_inicio.strip()
+        self._fecha_fin = fecha_fin.strip()
         self._empleados = []
+        self._tareas = []
 
     @property
     def id_proyecto(self) -> int:
@@ -36,6 +37,19 @@ class Proyecto:
     def asignar_empleado(self, empleado) -> None:
         if empleado not in self._empleados:
             self._empleados.append(empleado)
+
+    @property
+    def empleados_asignados(self) -> list:
+        """Alias para compatibilidad: lista de empleados asignados."""
+        return list(self._empleados)
+
+    def agregar_tarea(self, tarea) -> None:
+        if tarea not in self._tareas:
+            self._tareas.append(tarea)
+
+    @property
+    def tareas(self) -> list:
+        return list(self._tareas)
 
     def eliminar_empleado(self, empleado) -> None:
         try:

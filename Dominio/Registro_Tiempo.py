@@ -4,14 +4,14 @@ class RegistroTiempo:
             raise ValueError("El empleado no puede ser None.")
         if proyecto is None:
             raise ValueError("El proyecto no puede ser None.")
-        if not fecha:
+        if not fecha or not fecha.strip():
             raise ValueError("La fecha no puede estar vacía.")
         if horas <= 0:
             raise ValueError("Las horas deben ser mayores a cero.")
 
         self._empleado = empleado
         self._proyecto = proyecto
-        self._fecha = fecha
+        self._fecha = fecha.strip()
         self._horas = horas
 
     @property

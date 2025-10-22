@@ -1,10 +1,12 @@
-class Departamento:
-    """Representa un departamento simple."""
+"""
+Representa un departamento simple.
+"""
 
+class Departamento:
     def __init__(self, nombre: str):
-        if not nombre:
+        if not nombre or not nombre.strip():
             raise ValueError("El nombre del departamento no puede estar vacío")
-        self._nombre = nombre
+        self._nombre = nombre.strip()
 
     @property
     def nombre(self) -> str:
