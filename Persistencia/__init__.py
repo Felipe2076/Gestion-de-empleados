@@ -11,11 +11,11 @@ Notas:
 from typing import Optional, Dict, Any
 import logging
 
-__all__ = ["ConexionBD", "RepositorioEmpleados", "create_conexion"]
+__all__ = ["ConexionBD", "RepositorioEmpleados", "DepartamentoDao", "RepositorioProyectos", "RepositorioRegistroTiempo", "create_conexion"]
 
 logger = logging.getLogger(__name__)
 
-# Importar módulos de forma robusta para que el paquete no falle al importarse
+ 
 try:
 	from .ConexionBD import ConexionBD
 except Exception:
@@ -27,6 +27,24 @@ try:
 except Exception:
 	RepositorioEmpleados = None  # type: ignore
 	logger.debug("No se pudo importar RepositorioEmpleados", exc_info=True)
+
+try:
+	from .DepartamentoDao import DepartamentoDao
+except Exception:
+	DepartamentoDao = None  # type: ignore
+	logger.debug("No se pudo importar DepartamentoDao", exc_info=True)
+
+try:
+	from .RepositorioProyectos import RepositorioProyectos
+except Exception:
+	RepositorioProyectos = None  # type: ignore
+	logger.debug("No se pudo importar RepositorioProyectos", exc_info=True)
+
+try:
+	from .RepositorioRegistroTiempo import RepositorioRegistroTiempo
+except Exception:
+	RepositorioRegistroTiempo = None  # type: ignore
+	logger.debug("No se pudo importar RepositorioRegistroTiempo", exc_info=True)
 
 
 def create_conexion(**conf: Dict[str, Any]):

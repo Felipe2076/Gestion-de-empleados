@@ -28,7 +28,7 @@ def menu():
             fecha_ingreso = input("Fecha ingreso: ")
             salario = float(input("Salario: "))
             departamento = input("Departamento: ")
-            # simplificamos: no creamos objeto Departamento aquí
+            
             empleado = gestor_empleados.crear_empleado(
                 nombre=nombre, fecha_nac=fecha_nac, direccion=direccion, telefono=telefono,
                 id_empleado=id_empleado, fecha_ingreso=fecha_ingreso, salario=salario,

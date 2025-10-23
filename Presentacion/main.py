@@ -4,9 +4,9 @@ Simula un flujo completo: crear departamento/cargo, crear empleado, crear proyec
 asignar empleado, registrar tiempo y opcionalmente intentar persistir en MySQL.
 """
 
-from Aplicacion.GestorDeEmpleados import GestorDeEmpleados
+from Aplicacion.GestorDeEmpleados import GestorEmpleados
 from Aplicacion.GestiorProyectos import GestorProyectos
-from Aplicacion.GestiorDeTiempo import GestiorDeTiempo
+from Aplicacion.GestiorDeTiempo import GestorTiempo
 
 from Dominio.Departamento import Departamento
 from Dominio.Cargo import Cargo
@@ -15,15 +15,15 @@ from Dominio.Cargo import Cargo
 def main():
     print("Iniciando demo de presentación...")
 
-    gestor_empleados = GestorDeEmpleados()
+    gestor_empleados = GestorEmpleados()
     gestor_proyectos = GestorProyectos()
-    gestor_tiempo = GestiorDeTiempo()
+    gestor_tiempo = GestorTiempo()
 
-    # Crear departamento y cargo
+    
     dep_logistica = Departamento("Logística")
     cargo_analista = Cargo("Analista", "Técnico")
 
-    # Crear empleado
+    
     empleado = gestor_empleados.crear_empleado(
         nombre="Felipe",
         fecha_nac="1990-03-15",
@@ -43,7 +43,7 @@ def main():
 
     print("Empleado creado:", empleado.mostrar_info())
 
-    # Crear proyecto
+    
     proyecto = gestor_proyectos.crear_proyecto(
         nombre="Sistema Inventario",
         descripcion="Desarrollo de sistema de control de stock",
@@ -57,11 +57,11 @@ def main():
 
     print("Proyecto creado:", proyecto.nombre)
 
-    # Asignar empleado al proyecto
+    
     ok = gestor_proyectos.asignar_empleado(proyecto.nombre, empleado)
     print("Empleado asignado al proyecto:" , ok)
 
-    # Registrar tiempo trabajado
+    
     registro = gestor_tiempo.registrar_tiempo(
         empleado=empleado,
         proyecto=proyecto,
@@ -76,7 +76,7 @@ def main():
         except Exception:
             pass
 
-    # Mostrar totales
+    
     total_empleado = gestor_tiempo.calcular_total_horas_empleado(empleado.id_empleado)
     total_proyecto = gestor_tiempo.calcular_total_horas_proyecto(proyecto.nombre)
 
@@ -84,7 +84,7 @@ def main():
     print(f"Empleado {empleado.nombre}: {total_empleado} horas")
     print(f"Proyecto {proyecto.nombre}: {total_proyecto} horas")
 
-    # Intentar persistir en MySQL si la persistencia está disponible
+    
     try:
         from Persistencia.RepositorioEmpleados import RepositorioEmpleados
         print("Intentando persistir en MySQL (si está disponible)...")

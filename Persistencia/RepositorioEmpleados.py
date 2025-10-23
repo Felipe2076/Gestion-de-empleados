@@ -1,6 +1,8 @@
 from Dominio.Empleado import Empleado
 from Persistencia.ConexionBD import ConexionBD
 from typing import Optional, List
+from Dominio.Departamento import Departamento
+from Dominio.Cargo import Cargo
 
 
 class RepositorioEmpleados:
@@ -51,7 +53,31 @@ class RepositorioEmpleados:
         if not resultados:
             return None
         fila = resultados[0]
-        # Reconstruir Empleado mínimamente (Departamento y Cargo quedan como None si no se reconstruyen)
+        # Reconstruir Departamento y Cargo si existen en tablas relacionadas
+        departamento = None
+        cargo = None
+        try:
+            dep_nombre = fila.get("departamento")
+            if dep_nombre:
+                qd = "SELECT * FROM Departamentos WHERE nombre = %s"
+                rdep = self._conexion.execute(qd, (dep_nombre,))
+                if rdep:
+                    drow = rdep[0]
+                    departamento = Departamento(nombre=drow.get("nombre"))
+        except Exception:
+            departamento = None
+
+        try:
+            cargo_nombre = fila.get("cargo")
+            if cargo_nombre:
+                qc = "SELECT * FROM Cargos WHERE nombre = %s"
+                rc = self._conexion.execute(qc, (cargo_nombre,))
+                if rc:
+                    crow = rc[0]
+                    cargo = Cargo(nombre=crow.get("nombre"), nivel=crow.get("nivel"))
+        except Exception:
+            cargo = None
+
         return Empleado(
             nombre=fila.get("nombre"),
             fecha_nac=str(fila.get("fecha_nac")),
@@ -60,7 +86,8 @@ class RepositorioEmpleados:
             id_empleado=fila.get("id"),
             fecha_ingreso=str(fila.get("fecha_ingreso")),
             salario=fila.get("salario"),
-            departamento=None,
+            departamento=departamento,
+            cargo=cargo,
             email=fila.get("email") or "",
         )
 
