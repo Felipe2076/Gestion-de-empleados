@@ -2,7 +2,7 @@ from Dominio.Empleado import Empleado
 from Dominio.Departamento import Departamento
 from Dominio.Cargo import Cargo
 
-class GestorEmpleados:
+class GestorDeEmpleados:
     """
     Clase encargada de gestionar empleados dentro del sistema.
     Permite crear, buscar, listar y modificar empleados.

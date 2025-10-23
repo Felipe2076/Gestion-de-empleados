@@ -7,7 +7,7 @@ import importlib
 
 
 class ConexionBD:
-    def __init__(self, host="localhost", user="root", password="", db="", port=3306):
+    def __init__(self, host="localhost", user="root", password="", db="empleados", port=3306):
         self._conf = {
             "host": host,
             "user": user,
