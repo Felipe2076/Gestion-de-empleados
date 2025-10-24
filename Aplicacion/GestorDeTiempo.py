@@ -2,7 +2,7 @@ from Dominio.Registro_Tiempo import RegistroTiempo
 from Dominio.Empleado import Empleado
 from Dominio.Proyecto import Proyecto
 
-class GestorTiempo:
+class GestorDeTiempo:
     def __init__(self):
         self._registros = []
 
