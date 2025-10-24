@@ -1,66 +1,61 @@
 from Dominio.Empleado import Empleado
-from Dominio.Departamento import Departamento
+from datetime import datetime
 
-class GestorDeEmpleados:
+class GestorEmpleados:
     def __init__(self):
         self._empleados = []
 
-    def crear_empleado(self, nombre, fecha_nac, direccion, telefono,
-                    id_empleado, fecha_ingreso, salario,
-                    departamento, email=""):
-        if self.buscar_por_id(id_empleado):
-            return None
+    def crear_empleado(self):
         try:
-            empleado = Empleado(
-                id_empleado=id_empleado,
-                nombre=nombre,
-                fecha_nac=fecha_nac,
-                direccion=direccion,
-                telefono=telefono,
-                fecha_ingreso=fecha_ingreso,
-                salario=salario,
-                departamento=departamento,
-                email=email
-            )
+            id_empleado = int(input("ID empleado: "))
+            nombre = input("Nombre: ")
+            fecha_nac = input("Fecha nacimiento (YYYY-MM-DD): ")
+            direccion = input("Dirección: ")
+            telefono = input("Teléfono: ")
+            fecha_ingreso = input("Fecha ingreso (YYYY-MM-DD HH:MM): ")
+            salario = float(input("Salario: "))
+            departamento = input("Departamento: ")
+            cargo = input("Cargo: ")
+            email = input("Email: ")
+
+            fecha_nac = datetime.strptime(fecha_nac, "%Y-%m-%d").date()
+            fecha_ingreso = datetime.strptime(fecha_ingreso, "%Y-%m-%d %H:%M")
+
+            empleado = Empleado(id_empleado, nombre, fecha_nac, direccion, telefono,
+                                fecha_ingreso, salario, departamento, cargo, email)
             self._empleados.append(empleado)
-            return empleado
-        except Exception:
-            return None
+            print("Empleado creado correctamente.")
+        except ValueError as e:
+            print(f"Error al crear empleado: {e}")
 
     def listar_empleados(self):
-        return list(self._empleados)
+        if not self._empleados:
+            print("No hay empleados registrados.")
+            return
+        for emp in self._empleados:
+            print("\n" + emp.mostrar_info())
 
-    def buscar_por_id(self, id_empleado):
-        return next((e for e in self._empleados if e.id_empleado == id_empleado), None)
+    def actualizar_salario(self):
+        try:
+            id_empleado = int(input("ID del empleado a actualizar: "))
+            for emp in self._empleados:
+                if emp.id_empleado == id_empleado:
+                    nuevo_salario = float(input(f"Salario actual: {emp.salario}. Nuevo salario: "))
+                    emp.salario = nuevo_salario
+                    print("Salario actualizado.")
+                    return
+            print("Empleado no encontrado.")
+        except ValueError as e:
+            print(f"Error: {e}")
 
-    def eliminar_empleado(self, id_empleado):
-        empleado = self.buscar_por_id(id_empleado)
-        if empleado:
-            self._empleados.remove(empleado)
-            return True
-        return False
-
-    def actualizar_datos(self, id_empleado, direccion=None, telefono=None, email=None):
-        empleado = self.buscar_por_id(id_empleado)
-        if not empleado:
-            return False
-        if direccion:
-            empleado.direccion = direccion
-        if telefono:
-            empleado.telefono = telefono
-        if email:
-            empleado.email = email
-        return True
-
-    def asignar_departamento(self, id_empleado, nuevo_departamento):
-        empleado = self.buscar_por_id(id_empleado)
-        if empleado:
-            empleado.departamento = nuevo_departamento
-            return True
-        return False
-
-    def mostrar_info_empleado(self, id_empleado):
-        empleado = self.buscar_por_id(id_empleado)
-        if not empleado:
-            return "Empleado no encontrado."
-        return empleado.mostrar_info() if hasattr(empleado, "mostrar_info") else str(empleado)
+    def eliminar_empleado(self):
+        try:
+            id_empleado = int(input("ID del empleado a eliminar: "))
+            for emp in self._empleados:
+                if emp.id_empleado == id_empleado:
+                    self._empleados.remove(emp)
+                    print("Empleado eliminado.")
+                    return
+            print("Empleado no encontrado.")
+        except ValueError as e:
+            print(f"Error: {e}")

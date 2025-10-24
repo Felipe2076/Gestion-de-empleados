@@ -1,16 +1,14 @@
-class Persona:
-    def __init__(self, nombre, fecha_nac, direccion, telefono, email):
-        self._nombre = nombre
-        self._fecha_nac = fecha_nac
-        self._direccion = direccion
-        self._telefono = telefono
-        self._email = email
+from datetime import date
 
+class Persona:
+    def __init__(self, nombre: str,  fecha_nacimiento:date, direccion: str, telefono:str):
+        self._nombre = nombre
+        self._direccion = direccion
+        self._fecha_nacimiento = fecha_nacimiento
+        self._telefono = telefono
+    
     def mostrar_info(self):
         return (
-            f"Nombre: {self._nombre}\n"
-            f"Fecha de nacimiento: {self._fecha_nac}\n"
-            f"Dirección: {self._direccion}\n"
-            f"Teléfono: {self._telefono}\n"
-            f"Email: {self._email}"
+            f"Nombre: {self.nombre}, Fecha Nac: {self.fecha_nac.strftime('%Y-%m-%d')}, "
+            f"Dirección: {self.direccion}, Teléfono: {self.telefono}"
         )

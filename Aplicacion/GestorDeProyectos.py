@@ -1,46 +1,55 @@
 from Dominio.Proyecto import Proyecto
-from Dominio.Empleado import Empleado
+from datetime import datetime
 
 class GestorProyectos:
     def __init__(self):
         self._proyectos = []
 
-    def crear_proyecto(self, nombre, descripcion, fecha_inicio, fecha_fin):
-        if self.buscar_por_nombre(nombre):
-            return None
-        proyecto = Proyecto(nombre, descripcion, fecha_inicio, fecha_fin)
-        self._proyectos.append(proyecto)
-        return proyecto
+    def crear_proyecto(self):
+        try:
+            id_proyecto = int(input("ID del proyecto: "))
+            nombre = input("Nombre del proyecto: ")
+            descripcion = input("Descripción: ")
+            fecha_inicio = input("Fecha de inicio (YYYY-MM-DD): ")
+            fecha_fin = input("Fecha de fin (YYYY-MM-DD): ")
+
+            fecha_inicio = datetime.strptime(fecha_inicio, "%Y-%m-%d").date()
+            fecha_fin = datetime.strptime(fecha_fin, "%Y-%m-%d").date()
+
+            proyecto = Proyecto(id_proyecto, nombre, descripcion, fecha_inicio, fecha_fin)
+            self._proyectos.append(proyecto)
+            print("Proyecto creado correctamente.")
+        except ValueError as e:
+            print(f"Error al crear proyecto: {e}")
 
     def listar_proyectos(self):
-        return list(self._proyectos)
+        if not self._proyectos:
+            print("No hay proyectos registrados.")
+            return
+        for p in self._proyectos:
+            print("\n" + p.mostrar_info())
 
-    def buscar_por_nombre(self, nombre):
-        nombre = (nombre or "").strip().lower()
-        return next((p for p in self._proyectos if p.nombre.strip().lower() == nombre), None)
-
-    def eliminar_proyecto(self, nombre):
-        proyecto = self.buscar_por_nombre(nombre)
-        if proyecto:
-            self._proyectos.remove(proyecto)
-            return True
-        return False
-
-    def asignar_empleado(self, nombre_proyecto, empleado):
-        proyecto = self.buscar_por_nombre(nombre_proyecto)
-        if not proyecto:
-            return False
+    def actualizar_descripcion(self):
         try:
-            proyecto.asignar_empleado(empleado)
-            return True
-        except Exception:
-            return False
+            id_proyecto = int(input("ID del proyecto a actualizar: "))
+            for p in self._proyectos:
+                if p.id_proyecto == id_proyecto:
+                    nueva_desc = input(f"Descripción actual: {p.descripcion}\nNueva descripción: ")
+                    p.descripcion = nueva_desc
+                    print("Descripción actualizada.")
+                    return
+            print("Proyecto no encontrado.")
+        except ValueError as e:
+            print(f"Error: {e}")
 
-    def listar_empleados_de_proyecto(self, nombre_proyecto):
-        proyecto = self.buscar_por_nombre(nombre_proyecto)
-        if not proyecto:
-            return []
+    def eliminar_proyecto(self):
         try:
-            return proyecto.listar_empleados()
-        except Exception:
-            return []
+            id_proyecto = int(input("ID del proyecto a eliminar: "))
+            for p in self._proyectos:
+                if p.id_proyecto == id_proyecto:
+                    self._proyectos.remove(p)
+                    print("Proyecto eliminado.")
+                    return
+            print("Proyecto no encontrado.")
+        except ValueError as e:
+            print(f"Error: {e}")
