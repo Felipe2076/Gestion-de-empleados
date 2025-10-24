@@ -1,8 +1,8 @@
 # main.py
 from Persistencia.ConexionBD import ConexionBD
 from Aplicacion.GestorDeEmpleados import GestorDeEmpleados
-from Aplicacion.GestiorProyectos import GestorProyectos
-from Aplicacion.GestiorDeTiempo import GestiorDeTiempo
+from Aplicacion.GestorProyectos import GestorProyectos
+from Aplicacion.GestorDeTiempo import GestiorDeTiempo
 from Presentacion.cli import  menu_principal
 
 # ------------------------------------------------------------------

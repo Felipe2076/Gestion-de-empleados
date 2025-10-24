@@ -1,6 +1,6 @@
 from Aplicacion.GestorDeEmpleados import GestorEmpleados
-from Aplicacion.GestiorProyectos import GestorProyectos
-from Aplicacion.GestiorDeTiempo import GestorTiempo
+from Aplicacion.GestorProyectos import GestorProyectos
+from Aplicacion.GestorDeTiempo import GestorTiempo
 
 from Dominio.Departamento import Departamento
 from Dominio.Cargo import Cargo

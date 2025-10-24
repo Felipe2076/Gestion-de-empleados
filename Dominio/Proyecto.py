@@ -1,6 +1,5 @@
 class Proyecto:
-    def __init__(self, id_proyecto: int, nombre: str, descripcion: str,
-                 fecha_inicio: str, fecha_fin: str):
+    def __init__(self, id_proyecto: int, nombre: str, descripcion: str, fecha_inicio: str, fecha_fin: str):
         if id_proyecto is None or int(id_proyecto) <= 0:
             raise ValueError("id_proyecto debe ser un entero positivo")
         if not nombre or not nombre.strip():
@@ -40,7 +39,6 @@ class Proyecto:
 
     @property
     def empleados_asignados(self) -> list:
-        """Alias para compatibilidad: lista de empleados asignados."""
         return list(self._empleados)
 
     def agregar_tarea(self, tarea) -> None:
@@ -62,10 +60,8 @@ class Proyecto:
 
     def mostrar_info(self) -> str:
         return (
-            f"Proyecto: {self._nombre} | "
-            f"Inicio: {self._fecha_inicio} | Fin: {self._fecha_fin} | "
-            f"Descripción: {self._descripcion} | "
-            f"Empleados asignados: {len(self._empleados)}"
+            f"Proyecto: {self._nombre} | Inicio: {self._fecha_inicio} | Fin: {self._fecha_fin} | "
+            f"Descripción: {self._descripcion} | Empleados asignados: {len(self._empleados)}"
         )
 
     def __repr__(self) -> str:

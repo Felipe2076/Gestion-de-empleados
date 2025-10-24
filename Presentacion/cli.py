@@ -4,7 +4,7 @@ Permite crear empleados y listar empleados y proyectos.
 """
 
 from Aplicacion.GestorDeEmpleados import GestorDeEmpleados
-from Aplicacion.GestiorProyectos import GestorProyectos
+from Aplicacion.GestorProyectos import GestorProyectos
 
 
 def menu():

@@ -1,43 +1,16 @@
-"""
-Modelo simple de una persona con propiedades de acceso.
-Incluye validación básica y método para mostrar información.
-"""
-
 class Persona:
-    def __init__(self, nombre: str, fecha_nac: str, direccion: str, telefono: str, email: str = ""):
-        if not nombre or not nombre.strip():
-            raise ValueError("El nombre no puede estar vacío.")
-        self._nombre = nombre.strip()
-        self._fecha_nac = fecha_nac.strip()
-        self._direccion = direccion.strip()
-        self._telefono = telefono.strip()
-        self._email = email.strip()
+    def __init__(self, nombre, fecha_nac, direccion, telefono, email):
+        self._nombre = nombre
+        self._fecha_nac = fecha_nac
+        self._direccion = direccion
+        self._telefono = telefono
+        self._email = email
 
-    @property
-    def nombre(self) -> str:
-        return self._nombre
-
-    @property
-    def fecha_nac(self) -> str:
-        return self._fecha_nac
-
-    @property
-    def direccion(self) -> str:
-        return self._direccion
-
-    @property
-    def telefono(self) -> str:
-        return self._telefono
-
-    @property
-    def email(self) -> str:
-        return self._email
-
-    def mostrar_info(self) -> str:
-        return " | ".join([
-            f"Nombre: {self.nombre}",
-            f"Fecha de nacimiento: {self.fecha_nac}",
-            f"Dirección: {self.direccion}",
-            f"Teléfono: {self.telefono}",
-            f"Email: {self.email if self.email else 'No registrado'}"
-        ])
+    def mostrar_info(self):
+        return (
+            f"Nombre: {self._nombre}\n"
+            f"Fecha de nacimiento: {self._fecha_nac}\n"
+            f"Dirección: {self._direccion}\n"
+            f"Teléfono: {self._telefono}\n"
+            f"Email: {self._email}"
+        )

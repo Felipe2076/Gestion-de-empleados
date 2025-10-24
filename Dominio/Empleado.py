@@ -1,54 +1,28 @@
 from Dominio.Persona import Persona
-from Dominio.Departamento import Departamento
 
 class Empleado(Persona):
-    def __init__(self, nombre: str, fecha_nac: str, direccion: str, telefono: str,
-                id_empleado: int, fecha_ingreso: str, salario: float,
-                departamento: Departamento, email: str = ""):
-        super().__init__(nombre, fecha_nac, direccion, telefono, email)
-
-        if id_empleado <= 0:
-            raise ValueError("id_empleado debe ser un entero positivo")
-        if salario < 0:
-            raise ValueError("salario no puede ser negativo")
-        if not fecha_ingreso or not fecha_ingreso.strip():
-            raise ValueError("La fecha de ingreso no puede estar vacía.")
-        if not isinstance(departamento, Departamento):
-            raise TypeError("El departamento debe ser una instancia de Departamento.")
-
-        self._id_empleado = id_empleado
-        self._fecha_ingreso = fecha_ingreso.strip()
-        self._salario = float(salario)
-        self._departamento = departamento
-        self._proyectos = []
-
-    def calcular_salario(self) -> float:
-        return self._salario
-
-    @property
-    def id_empleado(self) -> int:
-        return self._id_empleado
-
-    @property
-    def salario(self) -> float:
-        return self._salario
-
-    @property
-    def departamento(self) -> Departamento:
-        return self._departamento
-
-    def mostrar_info(self) -> str:
-        return (
-            f"{super().mostrar_info()} | "
-            f"ID Empleado: {self._id_empleado} | "
-            f"Fecha de ingreso: {self._fecha_ingreso} | "
-            f"Salario: ${self._salario:.2f}"
-        )
+    def __init__(self, id_empleado, nombre, fecha_nac, direccion, telefono, fecha_ingreso, salario, departamento=None):
+        super().__init__(nombre, fecha_nac, direccion, telefono)
+        self.id_empleado = id_empleado
+        self.fecha_ingreso = fecha_ingreso
+        self.salario = salario
+        self.departamento = departamento
+        self.proyectos = []
+        self.registros_tiempo = []
 
     def asignar_proyecto(self, proyecto):
-        if proyecto not in self._proyectos:
-            self._proyectos.append(proyecto)
+        if proyecto not in self.proyectos:
+            self.proyectos.append(proyecto)
+            proyecto.asignar_empleado(self)
 
-    def listar_proyectos(self):
-        return self._proyectos
+    def registrar_tiempo(self, registro):
+        self.registros_tiempo.append(registro)
+        registro.empleado = self
 
+    def mostrar_info(self):
+        base_info = super().mostrar_info()
+        depto = self.departamento.nombre if self.departamento else "Sin asignar"
+        return (
+            f"{base_info}, ID: {self.id_empleado}, Ingreso: {self.fecha_ingreso}, "
+            f"Salario: ${self.salario}, Departamento: {depto}"
+        )
