@@ -55,7 +55,6 @@ class RepositorioEmpleados:
         fila = resultados[0]
         # Reconstruir Departamento y Cargo si existen en tablas relacionadas
         departamento = None
-        cargo = None
         try:
             dep_nombre = fila.get("departamento")
             if dep_nombre:
@@ -87,7 +86,6 @@ class RepositorioEmpleados:
             fecha_ingreso=str(fila.get("fecha_ingreso")),
             salario=fila.get("salario"),
             departamento=departamento,
-            cargo=cargo,
             email=fila.get("email") or "",
         )
 
