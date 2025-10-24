@@ -1,5 +1,5 @@
 from Dominio.Empleado import Empleado
-from Persistencia.Conexion_BD import ConexionBD
+from Persistencia.conexionBD import conexionbd
 from Dominio.Departamento import Departamento
 from typing import Optional, List
 
@@ -12,7 +12,7 @@ class RepositorioEmpleados:
     """
 
     def __init__(self, db_conf: dict = None):
-        self._conexion = ConexionBD(**(db_conf or {}))
+        self._conexion = conexionbd(**(db_conf or {}))
 
     def guardar(self, empleado: Empleado) -> None:
         query = """

@@ -1,5 +1,5 @@
 from Dominio.Registro_Tiempo import RegistroTiempo
-from Persistencia.ConexionBD import ConexionBD
+from Persistencia.conexionBD import conexionbd
 from typing import Optional, List
 
 
@@ -7,7 +7,7 @@ class RepositorioRegistroTiempo:
     """Repositorio para registros de tiempo."""
 
     def __init__(self, db_conf: dict = None):
-        self._conexion = ConexionBD(**(db_conf or {}))
+        self._conexion = conexionbd(**(db_conf or {}))
 
     def crear(self, registro: RegistroTiempo) -> None:
         query = "INSERT INTO RegistrosTiempo (empleado_id, proyecto_nombre, fecha, horas) VALUES (%s, %s, %s, %s)"

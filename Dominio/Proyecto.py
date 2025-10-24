@@ -13,23 +13,23 @@ class Proyecto:
         self._empleados = []
         self._tareas = []
 
-    @property
+    
     def id_proyecto(self) -> int:
         return self._id_proyecto
 
-    @property
+    
     def nombre(self) -> str:
         return self._nombre
 
-    @property
+    
     def descripcion(self) -> str:
         return self._descripcion
 
-    @property
+    
     def fecha_inicio(self) -> str:
         return self._fecha_inicio
 
-    @property
+    
     def fecha_fin(self) -> str:
         return self._fecha_fin
 
@@ -37,7 +37,7 @@ class Proyecto:
         if empleado not in self._empleados:
             self._empleados.append(empleado)
 
-    @property
+    
     def empleados_asignados(self) -> list:
         return list(self._empleados)
 
@@ -45,7 +45,7 @@ class Proyecto:
         if tarea not in self._tareas:
             self._tareas.append(tarea)
 
-    @property
+    
     def tareas(self) -> list:
         return list(self._tareas)
 

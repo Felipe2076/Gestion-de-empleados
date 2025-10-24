@@ -1,14 +1,14 @@
-from Persistencia.Conexion_BD import ConexionBD
+from Persistencia.conexionBD import conexionbd
 from Aplicacion.GestorDeEmpleados import GestorDeEmpleados
 from Aplicacion.GestorDeProyectos import GestorProyectos
 from Aplicacion.GestorDeTiempo import GestorDeTiempo
-from Presentacion.menu import run_menu
+from Presentacion.menu import menu
 
 def main():
     print("=== SISTEMA DE GESTIÓN DE EMPLEADOS ===")
 
-    conexion = ConexionBD()
-    conexion.connect()
+    conexion = conexionbd()
+    conexion.obtener_conexion()
     print("Conexión a la base de datos establecida.")
 
     gestor_empleado = GestorDeEmpleados()
@@ -16,7 +16,7 @@ def main():
     gestor_tiempo = GestorDeTiempo()
 
     try:
-        run_menu()
+        menu()
     except KeyboardInterrupt:
         print("\nPrograma finalizado por el usuario.")
     finally:

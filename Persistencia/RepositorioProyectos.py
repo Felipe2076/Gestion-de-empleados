@@ -1,5 +1,5 @@
 from Dominio.Proyecto import Proyecto
-from Persistencia.ConexionBD import ConexionBD
+from Persistencia.conexionBD import conexionbd
 from typing import Optional, List
 
 
@@ -7,7 +7,7 @@ class RepositorioProyectos:
     """Repositorio simple para proyectos."""
 
     def __init__(self, db_conf: dict = None):
-        self._conexion = ConexionBD(**(db_conf or {}))
+        self._conexion = conexionbd(**(db_conf or {}))
 
     def crear(self, proyecto: Proyecto) -> None:
         query = "INSERT INTO Proyectos (nombre, descripcion, fecha_inicio, fecha_fin) VALUES (%s, %s, %s, %s)"

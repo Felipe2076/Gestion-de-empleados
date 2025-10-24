@@ -10,15 +10,15 @@ class Departamento:
         self._ubicacion = ubicacion.strip()
         self._empleados = []
 
-    @property
+    
     def id_departamento(self) -> int:
         return self._id_departamento
 
-    @property
+  
     def nombre(self) -> str:
         return self._nombre
 
-    @property
+   
     def ubicacion(self) -> str:
         return self._ubicacion
 

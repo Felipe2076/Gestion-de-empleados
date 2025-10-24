@@ -1,5 +1,5 @@
 from Dominio.Departamento import Departamento
-from Persistencia.ConexionBD import ConexionBD
+from Persistencia.conexionBD import conexionbd
 from typing import Optional, List
 
 
@@ -7,7 +7,7 @@ class DepartamentoDao:
 	"""DAO simple para Departamentos usando ConexionBD."""
 
 	def __init__(self, db_conf: dict = None):
-		self._conexion = ConexionBD(**(db_conf or {}))
+		self._conexion = conexionbd(**(db_conf or {}))
 
 	def crear(self, departamento: Departamento) -> None:
 		query = "INSERT INTO Departamentos (nombre) VALUES (%s)"

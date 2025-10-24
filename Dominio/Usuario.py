@@ -10,19 +10,19 @@ class Usuario:
         self._password = password
         self._empleado = empleado
 
-    @property
+    
     def id_usuario(self) -> int:
         return self._id_usuario
 
-    @property
+    
     def username(self) -> str:
         return self._username
 
-    @property
+    
     def password(self) -> str:
         return self._password
 
-    @property
+    
     def empleado(self):
         return self._empleado
 

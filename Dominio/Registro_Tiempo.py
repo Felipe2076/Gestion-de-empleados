@@ -14,19 +14,19 @@ class RegistroTiempo:
         self._fecha = fecha.strip()
         self._horas = horas
 
-    @property
+    
     def empleado(self):
         return self._empleado
 
-    @property
+    
     def proyecto(self):
         return self._proyecto
 
-    @property
+    
     def fecha(self) -> str:
         return self._fecha
 
-    @property
+    
     def horas(self) -> float:
         return self._horas
 
